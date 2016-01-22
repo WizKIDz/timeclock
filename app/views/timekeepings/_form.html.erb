@@ -1,0 +1,25 @@
+<%= form_for(@timekeeping) do |f| %>
+  <% if @timekeeping.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@timekeeping.errors.count, "error") %> prohibited this timekeeping from being saved:</h2>
+
+      <ul>
+      <% @timekeeping.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :clock_in %><br>
+    <%= f.datetime_select :clock_in %>
+  </div>
+  <div class="field">
+    <%= f.label :clock_out %><br>
+    <%= f.datetime_select :clock_out %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

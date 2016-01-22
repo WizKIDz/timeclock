@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Clock in:</strong>
+  <%= @timekeeping.clock_in %>
+</p>
+
+<p>
+  <strong>Clock out:</strong>
+  <%= @timekeeping.clock_out %>
+</p>
+
+<%= link_to 'Edit', edit_timekeeping_path(@timekeeping) %> |
+<%= link_to 'Back', timekeepings_path %>
