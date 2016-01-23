@@ -34,6 +34,16 @@ class User < ActiveRecord::Base
     false
   end
 
+  # Helps to see if a user has been clocked in and hasnt clocked out yet
+  def is_clocked_in
+    @last_clocked_in = user.timekeepings.last
+    if @last_clocked_in && @last_clocked_in.clock_out.nil?
+      return @last_clocked_in
+    else
+      return nil
+    end
+  end
+
   def email_changed?
     false
   end

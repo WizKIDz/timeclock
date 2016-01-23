@@ -1,2 +1,8 @@
 <h1>Clock In</h1>
-<%= button_to "Clock In", { :action => "create" }, :method => :post %>
+<span><%= current_user.username %></span>
+<%= form_for @timekeeping, :url => timekeepings_url do |f| %>
+<% if @projects %>
+<%= f.collection_select(:project_id, @projects, :id, :name, {}, {:multiple => false}) %>
+<% end %>
+<%= f.submit  "Clock In"%>
+<% end %>

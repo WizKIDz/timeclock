@@ -11,6 +11,8 @@
 #
 
 class TimekeepingsController < ApplicationController
+  # User this action to see if a user is authenticated!
+  before_action :authenticate_user!
   before_action :set_timekeeping, only: [:show, :edit, :update, :destroy]
 
   # GET /timekeepings
@@ -28,20 +30,28 @@ class TimekeepingsController < ApplicationController
   def new
 	@last_record = Timekeeping.last
 	#@project_list = current_user.get_project_ids
-	if @last_record.clock_out.blank?
-		render '_clock_out_form'
-	else 
-		render '_clock_in_form'
-	end
+	#Check if the user has any records
+  if (!@last_record.nil?)&&(@last_record.clock_out.nil?)
+	  render '_clock_out_form'
+  else
+    # define projects, you can also do this in the view if you want
+    @projects = current_user.projects
+    @timekeeping = Timekeeping.new
+	  render '_clock_in_form'
   end
+  end
+
 
   # GET /timekeepings/1/edit
   def edit
   end
-  
+
   def clock_in
 	@timekeeping = Timekeeping.new
 	@timekeeping.clock_in = DateTime.current
+  # Not sure if you want to assign the user to the timekeeping here or in create? Maybe you want to do it here incase someone else wants to create a timekeeping for another user for some reason?
+  @timekeeping.user = current_user.id
+  puts @timekeeping
     respond_to do |format|
       if @timekeeping.save
         format.html { redirect_to @timekeeping, notice: 'Timekeeping was successfully created.' }
@@ -52,7 +62,7 @@ class TimekeepingsController < ApplicationController
       end
     end
   end
-  
+
 def clock_out
 	@last_record = Timekeeping.last
 	@last_record.clock_out = DateTime.current
@@ -66,18 +76,23 @@ def clock_out
       end
     end
  end
-  
+
   # POST /timekeepings
   # POST /timekeepings.json
   def create
     #@timekeeping = Timekeeping.new(timekeeping_params)
 	@timekeeping = Timekeeping.new
 	@timekeeping.clock_in = DateTime.current
+  # This seems nasty... might think of a better way to do this
+  @timekeeping.project_id = timekeeping_params[:project_id]
+  @timekeeping.user = current_user
+  # Tie user to timekeeping
     respond_to do |format|
       if @timekeeping.save
         format.html { redirect_to @timekeeping, notice: 'Timekeeping was successfully created.' }
         format.json { render :show, status: :created, location: @timekeeping }
       else
+        puts @timekeeping.errors.to_yaml
         format.html { render :new }
         format.json { render json: @timekeeping.errors, status: :unprocessable_entity }
       end
@@ -116,6 +131,6 @@ def clock_out
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def timekeeping_params
-      params.require(:timekeeping).permit(:clock_in, :clock_out)
+      params.require(:timekeeping).permit(:clock_in, :clock_out, :project_id)
     end
 end

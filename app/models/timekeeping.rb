@@ -11,4 +11,8 @@
 #
 
 class Timekeeping < ActiveRecord::Base
+  # validate that a user is assigned and also a project is assigned to an instance before save
+  validates :project, :user, presence: true
+  belongs_to :user
+  belongs_to :project
 end
