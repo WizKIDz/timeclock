@@ -1,0 +1,18 @@
+<% if user_signed_in? %>
+  <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        
+<% else %>
+  <%= link_to('Login', new_user_session_path)  %>  
+<% end %>
+
+<%if user_signed_in? %>
+<% if current_user.admin? %>
+	<%= link_to('Create User', new_user_registration_path) %>
+	<%= link_to('Update a User', edit_user_registration_path) %>
+	<%= link_to('Add Project', new_project_path) %>
+	<%#= link_to('Remove Project', delete_project_path) %>
+	<%#= link_to('Add Timekeeping Record') %>
+	<%#= link_to('Edit Timekeeping Record') %>
+	<%#= link_to('Delete Timekeeping Record') %>
+	<%#= link_to('Reports) %>
+<% end %>
+<% end %>

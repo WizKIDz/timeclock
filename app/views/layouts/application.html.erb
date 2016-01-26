@@ -7,8 +7,9 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <%= render 'devise/menu/login_items' %>
   <%= render "layouts/navbar" %>
 <%= yield %>
-
+ 
 </body>
 </html>

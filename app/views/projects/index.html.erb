@@ -23,7 +23,4 @@
 </table>
 <br>
 
-	<%= collection_select(:projects, :name, @projects, :id, :name, {}, {:multiple => true}) %>
-	<%= collection_select(:users, :name, @users, :id, :username, {}, {:multiple => false}) %>
-
 <%= link_to 'New Project', new_project_path %>

@@ -4,13 +4,19 @@
   <%= devise_error_messages! %>
 
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+    <%= f.label :Student_ID %><br />
+    <%= f.text_field :username, autofocus: true %>
   </div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
+  <div class="field">
+	<%= f.label :First_Name %><br />
+	<%= f.text_field :first_name %>
+  </div>
+  
+  <div class="field">
+	<%= f.label :Last_Name %><br />
+	<%= f.text_field :last_name %>
+  </div>
 
   <div class="field">
     <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
@@ -21,10 +27,16 @@
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
-
+  
+   <div class="field">
+	<%= f.radio_button :admin, true %>
+	<%= f.label :admin, "Admin" %>
+	<%= f.radio_button :admin, false %>
+	<%= f.label :admin, "User" %>
+  </div>
+  
   <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off" %>
+	<%= f.collection_select(:project_ids, Project.all, :id, :name, {}, {:multiple => true}) %>
   </div>
 
   <div class="actions">
@@ -32,8 +44,8 @@
   </div>
 <% end %>
 
-<h3>Cancel my account</h3>
+<h3Delete an Account</h3>
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+<p>Delete <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
 
 <%= link_to "Back", :back %>

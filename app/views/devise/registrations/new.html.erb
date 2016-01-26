@@ -4,10 +4,20 @@
   <%= devise_error_messages! %>
 
   <div class="field">
-    <%= f.label :Username %><br />
+    <%= f.label :Student_ID %><br />
     <%= f.text_field :username, autofocus: true %>
   </div>
 
+  <div class="field">
+	<%= f.label :First_Name %><br />
+	<%= f.text_field :first_name %>
+  </div>
+  
+  <div class="field">
+	<%= f.label :Last_Name %><br />
+	<%= f.text_field :last_name %>
+  </div>
+  
   <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>

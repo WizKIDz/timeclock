@@ -30,6 +30,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
+	render 'update_projects'
   end
 
   # POST /projects
@@ -70,6 +71,10 @@ class ProjectsController < ApplicationController
       format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+  
+  def retire
+	@projects = Project.find(params[:id])
   end
 
   private
