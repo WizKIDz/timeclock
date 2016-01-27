@@ -10,12 +10,12 @@
 
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
-
+  before_action :sanitize_project_ids, only: [:update, :create];
   # GET /projects
   # GET /projects.json
   def index
     @projects = Project.all
-	@users = User.all
+  	@users = User.all
   end
 
   # GET /projects/1

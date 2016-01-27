@@ -29,7 +29,7 @@
   </div>
 
   <div class="field">
-	<%= f.collection_select(:project_ids, Project.all, :id, :name, {}, {:multiple => true}) %>
+	<%= f.collection_select(:project_ids, Project.all, :id, :name, {}, {:multiple => true, prompt: false}) %>
   </div>
 
   <div class="actions">
