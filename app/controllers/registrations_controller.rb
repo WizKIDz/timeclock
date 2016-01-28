@@ -1,5 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
   before_filter :configure_permitted_parameters
+  before_action :sanitize_project_ids, only: [:update, :create];
   
   protected
   def update_resource(resource, params)
@@ -16,5 +17,9 @@ class RegistrationsController < Devise::RegistrationsController
 	devise_parameter_sanitizer.for(:account_update) do |user_params|
 		user_params.permit(:username, :first_name, :last_name, :password, :password_confirmation, :admin, project_ids: [])
 	end
+  end
+  def sanitize_user_project_ids
+	user_params = params["user"]
+	user_params['project_ids'].delete_if{|p| p == ""}
   end
 end

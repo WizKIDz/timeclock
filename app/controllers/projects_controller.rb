@@ -10,6 +10,7 @@
 
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
+  #before_action :sanitize_project_ids, only: [:retire];
 
   # GET /projects
   # GET /projects.json
@@ -74,6 +75,7 @@ class ProjectsController < ApplicationController
   end
   
   def retire
+	puts params[:ids]
 	@projects = Project.find(params[:id])
   end
 
@@ -87,4 +89,8 @@ class ProjectsController < ApplicationController
     def project_params
       params.require(:project).permit(:name)
     end
+	
+	def sanitize_project_ids
+		params[:ids].delete_if{|p| p == ""}
+	end
 end
