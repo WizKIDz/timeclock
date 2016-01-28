@@ -10,7 +10,7 @@
 
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
-  before_action :sanitize_project_ids, only: [:update, :create];
+  before_action :sanitize_project_ids, only: [:update, :create, :retire];
   # GET /projects
   # GET /projects.json
   def index
@@ -30,6 +30,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
+	render 'update_projects'
   end
 
   # POST /projects
@@ -72,6 +73,11 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def retire
+	puts params[:ids]
+	@projects = Project.find(params[:projects][:ids])
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project
@@ -82,4 +88,8 @@ class ProjectsController < ApplicationController
     def project_params
       params.require(:project).permit(:name)
     end
+
+	def sanitize_project_ids
+		params[:projects][:ids].delete_if{|p| p == ""}
+	end
 end

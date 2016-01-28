@@ -14,9 +14,6 @@
   <tbody>
     <% @timekeepings.each do |timekeeping| %>
       <tr>
-        <td><%= timekeeping.user.username %></td>
-        <td><%= timekeeping.clock_in %></td>
-        <td><%= timekeeping.clock_out %></td>
         <td><%= link_to 'Show', timekeeping %></td>
         <td><%= link_to 'Edit', edit_timekeeping_path(timekeeping) %></td>
         <td><%= link_to 'Destroy', timekeeping, method: :delete, data: { confirm: 'Are you sure?' } %></td>

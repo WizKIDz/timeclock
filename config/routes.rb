@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
-  resources :projects
-  #devise_for :users
-  devise_for :users, :controllers => { registrations: 'registrations' } do get '/users/sign_out' => 'devise/sessions#destroy' end 
-  #devise_for :users, :controllers => { registrations: 'registrations' }
+  devise_for :users, :controllers => { registrations: 'registrations' } 
   resources :timekeepings
+  resources :projects
   post '/clock_in' => 'timekeepings#clock_in'
   post '/clock_out' => 'timekeepings#clock_out'
+  post '/retire' => 'projects#retire'
+  
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

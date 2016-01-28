@@ -1,0 +1,5 @@
+<%= form_for :projects, :url => { :action => "retire" }, :method => :post do |f| %>
+	<!-- <%= f.select :ids, collection: Project.all, :multiple => true, :include_hidden => true %> -->
+	<%= f.collection_select(:ids, Project.all, :id, :name, {}, {:multiple => true, :include_hidden => true}) %>
+	<%= f.submit "Retire Project(s)" %>
+<% end %>

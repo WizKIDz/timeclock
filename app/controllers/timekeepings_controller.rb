@@ -28,8 +28,8 @@ class TimekeepingsController < ApplicationController
 
   # GET /timekeepings/new
   def new
-	@last_record = Timekeeping.last
-	#@project_list = current_user.get_project_ids
+	@records = Timekeeping.where(user: current_user.id)
+	@last_record = @records.last
 	#Check if the user has any records
   if (!@last_record.nil?)&&(@last_record.clock_out.nil?)
 	  render '_clock_out_form'
@@ -37,7 +37,7 @@ class TimekeepingsController < ApplicationController
     # define projects, you can also do this in the view if you want
     @projects = current_user.projects
     @timekeeping = Timekeeping.new
-	  render '_clock_in_form'
+	render '_clock_in_form'
   end
   end
 

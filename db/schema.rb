@@ -11,12 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160122202007) do
+ActiveRecord::Schema.define(version: 20160125191923) do
 
   create_table "projects", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean  "status"
   end
 
   create_table "projects_users", id: false, force: :cascade do |t|
@@ -53,6 +54,8 @@ ActiveRecord::Schema.define(version: 20160122202007) do
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.boolean  "admin",                  default: false
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
